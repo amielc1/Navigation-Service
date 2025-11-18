@@ -6,34 +6,10 @@ using System.Threading.Tasks;
 
 namespace Navigation_Service
 {
-    internal class INSDevice : INavigationDevice
+    internal class INSDevice : NavigationDeviceBase
     {
         // constructor
-        public INSDevice() {
-            System.Timers.Timer myTimer = new System.Timers.Timer(3500);
-            myTimer.Elapsed += OnTimedEvent;
-            myTimer.Enabled = true;
-        }
-
-        private void OnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
-        {
-            SendPosition();
-        }
-
-        // implement the event from the interface
-        public event EventHandler<PositionArrivedEventArgs> onPositionArrived;
-        public void SendPosition()
-        {
-            Position pos = new Position
-            {
-                x = new Random().NextDouble() * 100,
-                y = new Random().NextDouble() * 100,
-                z = new Random().NextDouble() * 100
-            };
-
-            PositionArrivedEventArgs args = new PositionArrivedEventArgs(pos);
-
-            onPositionArrived?.Invoke(this, args);
-        }
+        public INSDevice() { }
+          
     }
 }

@@ -6,34 +6,11 @@ using System.Threading.Tasks;
 
 namespace Navigation_Service
 {
-    internal class GPSDevice : INavigationDevice
+    internal class GPSDevice : NavigationDeviceBase
     {
         // constructor
-        public GPSDevice() {
-            System.Timers.Timer myTimer = new System.Timers.Timer(2000);
-            myTimer.Elapsed += OnTimedEvent;
-            myTimer.Enabled = true;
-        }
+        public GPSDevice() { }
 
-        private void OnTimedEvent(object? sender, System.Timers.ElapsedEventArgs e)
-        {
-            SendPosition();
-        }
-
-        // implement the event from the interface
-        public event EventHandler<PositionArrivedEventArgs> onPositionArrived;
-        public void SendPosition()
-        {
-            Position pos = new Position
-            {
-                x = new Random().NextDouble() * 100,
-                y = new Random().NextDouble() * 100,
-                z = new Random().NextDouble() * 100
-            };
-
-            PositionArrivedEventArgs args = new PositionArrivedEventArgs(pos);
-
-            onPositionArrived?.Invoke(this, args);
-        }
+       
     }
 }
