@@ -10,7 +10,5 @@ namespace Navigation_Service
     {
         // every device must implement this event !
         event EventHandler<PositionArrivedEventArgs> onPositionArrived;
-
-        void SendPosition();
     }
 }

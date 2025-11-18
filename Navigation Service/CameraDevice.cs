@@ -9,9 +9,17 @@ namespace Navigation_Service
     internal class CameraDevice : INavigationDevice
     {
         // constructor
-        public CameraDevice() { }
+        public CameraDevice() {
+            System.Timers.Timer myTimer = new System.Timers.Timer(1000);
+            myTimer.Elapsed += OnTimedEvent;
+            myTimer.Enabled = true;
+        }
 
-        // implement the event from the interface
+        private void OnTimedEvent(object? sender, System.Timers.ElapsedEventArgs e)
+        {
+            SendPosition();
+        }
+
         public event EventHandler<PositionArrivedEventArgs> onPositionArrived;
 
         // send Event of position arrived

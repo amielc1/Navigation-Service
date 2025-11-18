@@ -42,21 +42,13 @@ namespace Navigation_Service
             Console.WriteLine("Manager registered for all device events.");
         }
 
-        private void allMembersSendPos()
-        {
-            // Iterate over all devices and call their SendPosition method
-            foreach (var device in navigationDevices)
-            {
-                device.SendPosition();
-            }
-            Console.WriteLine("All devices sent their positions.");
-        }
-
         public void run()
         {
            AddDevice();
             registerForEvent();
-            allMembersSendPos();
+
+            System.Console.WriteLine("Navigation Manager is running. Press Enter to stop and exit...");
+            Console.ReadLine();
         }
         
 

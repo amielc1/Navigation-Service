@@ -9,7 +9,16 @@ namespace Navigation_Service
     internal class GPSDevice : INavigationDevice
     {
         // constructor
-        public GPSDevice() { }
+        public GPSDevice() {
+            System.Timers.Timer myTimer = new System.Timers.Timer(1000);
+            myTimer.Elapsed += OnTimedEvent;
+            myTimer.Enabled = true;
+        }
+
+        private void OnTimedEvent(object? sender, System.Timers.ElapsedEventArgs e)
+        {
+            SendPosition();
+        }
 
         // implement the event from the interface
         public event EventHandler<PositionArrivedEventArgs> onPositionArrived;

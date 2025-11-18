@@ -9,7 +9,16 @@ namespace Navigation_Service
     internal class INSDevice : INavigationDevice
     {
         // constructor
-        public INSDevice() { }
+        public INSDevice() {
+            System.Timers.Timer myTimer = new System.Timers.Timer(1000);
+            myTimer.Elapsed += OnTimedEvent;
+            myTimer.Enabled = true;
+        }
+
+        private void OnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
+        {
+            SendPosition();
+        }
 
         // implement the event from the interface
         public event EventHandler<PositionArrivedEventArgs> onPositionArrived;
