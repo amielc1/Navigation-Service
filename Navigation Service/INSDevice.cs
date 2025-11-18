@@ -10,7 +10,7 @@ namespace Navigation_Service
     {
         // constructor
         public INSDevice() {
-            System.Timers.Timer myTimer = new System.Timers.Timer(1000);
+            System.Timers.Timer myTimer = new System.Timers.Timer(3500);
             myTimer.Elapsed += OnTimedEvent;
             myTimer.Enabled = true;
         }

@@ -10,7 +10,7 @@ namespace Navigation_Service
     {
         // constructor
         public GPSDevice() {
-            System.Timers.Timer myTimer = new System.Timers.Timer(1000);
+            System.Timers.Timer myTimer = new System.Timers.Timer(2000);
             myTimer.Elapsed += OnTimedEvent;
             myTimer.Enabled = true;
         }

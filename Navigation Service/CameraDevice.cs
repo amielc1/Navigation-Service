@@ -10,7 +10,7 @@ namespace Navigation_Service
     {
         // constructor
         public CameraDevice() {
-            System.Timers.Timer myTimer = new System.Timers.Timer(1000);
+            System.Timers.Timer myTimer = new System.Timers.Timer(7200);
             myTimer.Elapsed += OnTimedEvent;
             myTimer.Enabled = true;
         }
