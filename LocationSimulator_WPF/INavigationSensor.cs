@@ -18,7 +18,7 @@ namespace LocationSimulator_WPF
 
 
         // best practice for event handler
-         event EventHandler<ReadingArrivedEventArgs> ReadingAvailable;
+         event EventHandler<ReadingArrivedEventArgs> OnReadingAvailable;
 
         // simplified event handler
         //event Action<LocationData> ReadingAvailable;
