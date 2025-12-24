@@ -12,14 +12,17 @@ namespace Navigation_Service
         public NavigationManager() { }
         private void updateUdpReceiversAndDevices()
         {
-            // There needs to be one object that does all this work. It looks really ugly to have to manually add every sensor to the vector.
-            UdpReceiver GpsReceiver = new UdpReceiver(Constants.GPS_PORT);
-            GPSDevice gpsDevice = new GPSDevice();
-            GpsReceiver.RawDataReceived += gpsDevice.On_RawDataReceived;
-            navigationDevices.Add(gpsDevice);
-            udpReceivers.Add(GpsReceiver);
+            // 1. start udp listener on GNSS port
+            UdpNmeaSource gnssUdpSource = new UdpNmeaSource(Constants.GNSS_PORT);
 
+            // 2. create GNSS device
+            GnssReceiver gnssDevice = new GnssReceiver();
 
+            // 3. connect GNSS device to UDP source
+            gnssDevice.ConnectSource(gnssUdpSource);
+
+            // 4. add to lists
+            navigationDevices.Add(gnssDevice);
         }
 
         private void StartListening()
@@ -33,8 +36,6 @@ namespace Navigation_Service
         }
         public void run()
         {
-            ////////AddDevice();
-            //////// registerForEvent();
             updateUdpReceiversAndDevices();
             StartListening();
 
@@ -45,7 +46,5 @@ namespace Navigation_Service
 
         private List<INavigationDevice> navigationDevices = new List<INavigationDevice>();
         private List<UdpReceiver> udpReceivers = new List<UdpReceiver>();
-
-
     }
 }
