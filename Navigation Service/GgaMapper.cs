@@ -6,7 +6,8 @@ namespace Navigation_Service
     {
         public void Map(NmeaMessage message, GNSSPosition target)
         {
-            if (message is Gga gga)
+            // safe cast to Gga from NmeaMessage.
+            if (message is Gga gga)  
             {
                 target.Latitude = gga.Latitude;
                 target.Longitude = gga.Longitude;

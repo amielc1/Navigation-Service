@@ -15,8 +15,9 @@ namespace Navigation_Service
             _mappers = new Dictionary<Type, INmeaMapper>
             {
                 { typeof(Gga), new GgaMapper() },
+                { typeof(Vtg), new VtgMapper() },
                 // { typeof(Rmc), new RmcMapper() },
-                // { typeof(Vtg), new VtgMapper() },
+
             };
         }
 

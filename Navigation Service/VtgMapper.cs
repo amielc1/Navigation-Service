@@ -7,7 +7,8 @@ namespace Navigation_Service
     {
         public void Map(NmeaMessage message, GNSSPosition target)
         {
-            if (message is Vtg vtg)
+            // safe cast to Vtg from NmeaMessage.
+            if (message is Vtg vtg) 
             {
                 if (!double.IsNaN(vtg.SpeedKph))
                 {
