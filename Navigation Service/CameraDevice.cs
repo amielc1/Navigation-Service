@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Navigation_Service
 {
-    internal class CameraDevice : NavigationDevicesBase
+    internal class CameraDevice : INavigationDevice
     {
-        // constructor
+        public event EventHandler<PositionArrivedEventArgs> onPositionArrived;
         public CameraDevice() { }
     }
 }

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Navigation_Service
 {
-    internal class INSDevice : NavigationDevicesBase
+    internal class INSDevice : INavigationDevice
     {
-        // constructor
+        public event EventHandler<PositionArrivedEventArgs> onPositionArrived;
         public INSDevice() { }
           
     }

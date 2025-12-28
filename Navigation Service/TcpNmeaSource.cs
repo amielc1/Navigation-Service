@@ -29,10 +29,10 @@ namespace Navigation_Service
                 await _tcpClient.ConnectAsync(_ip, _port);
                 Console.WriteLine($"[TCP Source] Connected to {_ip}:{_port}");
 
-                // create the StreamDevice over the TCP stream
+                // create the StreamDevice over the TCP stream.
                 _device = new StreamDevice(_tcpClient.GetStream());
 
-                // subscribe to message received event
+                // subscribe to message received event.
                 _device.MessageReceived += (s, e) =>
                 {
                     // sent the parsed message to subscribers

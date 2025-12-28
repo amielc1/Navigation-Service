@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Navigation_Service
+﻿namespace Navigation_Service
 {
     internal class NavigationManager
     {
@@ -16,7 +9,7 @@ namespace Navigation_Service
             UdpNmeaSource gnssUdpSource = new UdpNmeaSource(Constants.GNSS_PORT);
 
             // 2. create GNSS device
-            GnssDevice gnssDevice = new GnssDevice();
+            GNSSDevice gnssDevice = new GNSSDevice();
 
             // 3. connect GNSS device to UDP source
             gnssDevice.ConnectSource(gnssUdpSource);
@@ -29,13 +22,14 @@ namespace Navigation_Service
         public void run()
         {
             updateUdpReceiversAndDevices();
+
             while (true)
             {
                 // keep the service running
                 Task.Delay(1000).Wait();
             }
         }
-        
+
 
         private List<INavigationDevice> navigationDevices = new List<INavigationDevice>();
         private List<INmeaSource> nmeaSources = new List<INmeaSource>();

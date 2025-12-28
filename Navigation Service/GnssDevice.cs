@@ -1,49 +1,52 @@
 ﻿using System;
-using System.Collections.Generic;
 using NmeaParser.Messages;
 
 namespace Navigation_Service
 {
-    internal class GnssDevice : NavigationDevicesBase
+    internal class GNSSDevice : INavigationDevice
     {
-        private GPSPosition _currentPosition = new GPSPosition();
+        public event EventHandler<PositionArrivedEventArgs> onPositionArrived;
 
-    
+        private GPSPosition _currentPosition = new GPSPosition();
         private readonly Dictionary<Type, INmeaMapper> _mappers;
 
-        public GnssDevice()
+        public GNSSDevice()
         {
             _mappers = new Dictionary<Type, INmeaMapper>
             {
                 { typeof(Gga), new GgaMapper() },
-                // אפשר להוסיף כאן בקלות:
                 // { typeof(Rmc), new RmcMapper() },
                 // { typeof(Vtg), new VtgMapper() },
             };
         }
 
-        // function to disconnect from source
+        // function to connect from source
         public void ConnectSource(INmeaSource source)
         {
             source.MessageReceived += OnNmeaMessageReceived;
             source.Start();
         }
 
-        // הפונקציה המרכזית שמקבלת החלטות
         private void OnNmeaMessageReceived(object sender, NmeaMessage message)
         {
             Type msgType = message.GetType();
 
-            // בדיקה האם יש לנו Mapper רשום עבור סוג ההודעה הזה
-            if (_mappers.TryGetValue(msgType, out var mapper))
+            // There is no mapping for this message type..
+            if (_mappers.TryGetValue(msgType, out var processor))
             {
-                // הפעלת הלוגיקה הספציפית
-                mapper.Map(message, _currentPosition);
+                // map this messege.
+                processor.Map(message, _currentPosition);
 
-                // לוג או עדכון מערכת
+                // Raise an event or log the updated position.
+                onPositionArrived?.Invoke(this, new PositionArrivedEventArgs(_currentPosition));
+                
+                // for test OR logger.
                 Console.WriteLine($"[GNSS] Pos Updated: Lat={_currentPosition.Latitude:F6}, Lon={_currentPosition.Longitude:F6} (Src: {msgType.Name})");
             }
-            // else: הודעה שאין לנו עניין בה (כמו GSV), מתעלמים בשקט
+            else
+            {
+                Console.WriteLine("There is no mapping for this message type.");
+            }
         }
     }
 }

@@ -36,6 +36,7 @@ namespace Navigation_Service
                     try
                     {
                         // parse NMEA sentence to NmeaMessage object.
+                        // If the sentence is not recognized, an exception is thrown.
                         var msg = NmeaMessage.Parse(sentence);
                         MessageReceived?.Invoke(this, msg);
                     }
