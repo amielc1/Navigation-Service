@@ -7,7 +7,7 @@ namespace Navigation_Service
     {
         public event EventHandler<PositionArrivedEventArgs> onPositionArrived;
 
-        private GPSPosition _currentPosition = new GPSPosition();
+        private GNSSPosition _currentPosition = new GNSSPosition();
         private readonly Dictionary<Type, INmeaMapper> _mappers;
 
         public GNSSDevice()
@@ -15,8 +15,9 @@ namespace Navigation_Service
             _mappers = new Dictionary<Type, INmeaMapper>
             {
                 { typeof(Gga), new GgaMapper() },
+                { typeof(Vtg), new VtgMapper() },
                 // { typeof(Rmc), new RmcMapper() },
-                // { typeof(Vtg), new VtgMapper() },
+
             };
         }
 
