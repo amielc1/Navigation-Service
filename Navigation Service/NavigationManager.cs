@@ -13,6 +13,7 @@ namespace Navigation_Service
              _logger = logger.ForContext<NavigationManager>();
             _navigationDevices = device;
         }
+
         //private void updateUdpReceiversAndDevices()
         //{
         //    // 1. start udp listener on GNSS port

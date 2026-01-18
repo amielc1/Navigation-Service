@@ -9,6 +9,6 @@ namespace Navigation_Service
     internal interface INavigationDevice
     {
         // every device must implement this event !
-        event EventHandler<PositionArrivedEventArgs> onPositionArrived;
+        event EventHandler<PositionNMEArrivedEventArgs> onPositionArrived;
     }
 }
