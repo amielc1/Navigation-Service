@@ -6,19 +6,21 @@ ILogger logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateLogger();
 
+var devices = new List<INavigationDevice>();
 
 var gpsSource = new UdpSource(Constants.GNSS_PORT,logger);
 var nmeaParser = new Navigation_Service.NmeaParser(gpsSource,logger);
 var gpsDevice = new GNSSDevice(nmeaParser,logger);
+devices.Add(gpsDevice);
 
 var imuSource = new UdpSource(Constants.IMU_PORT,logger);
 var insDevice = new INSDevice(imuSource,logger);
-
+devices.Add(insDevice);
 
 //gpsSource.Start();
 //gpsDevice.ConnectSource(gpsSource);
 
-var devices = new List<INavigationDevice> { gpsDevice };
+//var devices = new List<INavigationDevice> { gpsDevice };
 
 NavigationManager navigationManager = new NavigationManager(logger, devices);
 navigationManager.run();
