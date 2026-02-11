@@ -13,7 +13,7 @@ namespace Navigation_Service
         public GNSSDevice(NmeaParser messege , ILogger logger)
         {
             _logger = logger;
-            messege.sentceNMEArecived += OnNmeaMessageReceived;
+            messege.sentceNMEArecived += OnNmeaMessageReceived; // regist . (now : from NmeaParser)
             _mappers = new Dictionary<Type, INmeaMapper>
             {
                 { typeof(Gga), new GgaMapper() },

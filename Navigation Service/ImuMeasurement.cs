@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Navigation_Service
+﻿namespace Navigation_Service
 {
     public class ImuMeasurement : IMeasurement // Inherits from the common interface we created
     {

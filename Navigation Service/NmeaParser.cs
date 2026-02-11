@@ -14,7 +14,7 @@ namespace Navigation_Service
         public NmeaParser(IStreamSource streamSource, ILogger logger)
         {
             _logger = logger.ForContext<NmeaParser>();
-            streamSource.RawDataReceived += OnRawDataReceived; // regist . 
+            streamSource.RawDataReceived += OnRawDataReceived; // regist .(now : from UdpSource) 
         }
 
         private void OnRawDataReceived(object sender, RawDataEventArgs e)
@@ -28,7 +28,7 @@ namespace Navigation_Service
                 _logger.Debug("[NmeaParser] Parsing sentence: {Sentence}", sentence);
                 var msg = NmeaMessage.Parse(sentence);
 
-                sentceNMEArecived?.Invoke(this, msg); // raise .
+                sentceNMEArecived?.Invoke(this, msg); // raise . (now: to GNSSDevice)
 
             }
             catch (Exception ex)

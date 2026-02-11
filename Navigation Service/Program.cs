@@ -7,12 +7,14 @@ ILogger logger = new LoggerConfiguration()
     .CreateLogger();
 
 
-var udpsource = new UdpSource(Constants.GNSS_PORT,logger);
-var nmeaParser = new Navigation_Service.NmeaParser(udpsource,logger);
+var gpsSource = new UdpSource(Constants.GNSS_PORT,logger);
+var nmeaParser = new Navigation_Service.NmeaParser(gpsSource,logger);
 var gpsDevice = new GNSSDevice(nmeaParser,logger);
 
 
-//udpsource.Start();
+
+
+//gpsSource.Start();
 //gpsDevice.ConnectSource(gpsSource);
 
 var devices = new List<INavigationDevice> { gpsDevice };
