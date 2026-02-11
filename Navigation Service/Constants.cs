@@ -9,5 +9,6 @@ namespace Navigation_Service
     public static class Constants
     {
       public  const int GNSS_PORT = 11000;
+      public const int IMU_PORT = 11001;
     }
 }
