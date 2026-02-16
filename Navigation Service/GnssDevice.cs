@@ -14,12 +14,12 @@ namespace Navigation_Service
         {
             _logger = logger;
             messege.sentceNMEArecived += OnNmeaMessageReceived; // regist . (now : from NmeaParser)
+            _logger.Information("[GNSSDevice] Subscribed to NMEA parser.");
             _mappers = new Dictionary<Type, INmeaMapper>
             {
                 { typeof(Gga), new GgaMapper() },
                 { typeof(Vtg), new VtgMapper() },
-                // { typeof(Rmc), new RmcMapper() },
-
+                { typeof(Rmc), new RmcMapper() },
             };
         }
 

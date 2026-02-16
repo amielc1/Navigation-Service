@@ -2,10 +2,6 @@
 {
     public class GNSSPosition : ImuMeasurement
     {
-        // --- Time ---
-        // Time in seconds (used for dt calculation)
-        public double Timestamp { get; set; }
-
         // --- Position (3D) ---
         // Latitude in degrees (from GGA)
         public double Latitude { get; set; }

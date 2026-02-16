@@ -12,6 +12,16 @@ namespace Navigation_Service
         {
              _logger = logger.ForContext<NavigationManager>();
             _navigationDevices = device;
+
+            foreach (var dev in _navigationDevices)
+            {
+                dev.onPositionArrived += OnPositionArrived;
+            }
+        }
+
+        private void OnPositionArrived(object? sender, PositionArrivedEventArgs e)
+        {
+            _logger.Information("[NavigationManager] Data arrived from {DeviceType}", sender?.GetType().Name);
         }
 
         //private void updateUdpReceiversAndDevices()
