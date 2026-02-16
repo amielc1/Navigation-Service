@@ -3,7 +3,7 @@ using NmeaParser.Messages;
 using Serilog;
 namespace Navigation_Service
 {
-    internal class GNSSDevice : INavigationDevice
+    public class GNSSDevice : INavigationDevice
     {
         public event EventHandler<PositionArrivedEventArgs> onPositionArrived; // raise
 

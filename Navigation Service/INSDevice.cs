@@ -5,7 +5,7 @@ using Serilog;
 
 namespace Navigation_Service
 {
-    internal class INSDevice : INavigationDevice
+    public class INSDevice : INavigationDevice
     {
         public event EventHandler<PositionArrivedEventArgs> onPositionArrived;
 

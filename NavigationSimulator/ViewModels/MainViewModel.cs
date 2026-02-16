@@ -6,8 +6,10 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Input;
 using System.Windows.Threading;
+using Navigation_Service;
 using NavigationSimulator.Helpers;
 using NavigationSimulator.Models;
+using Serilog;
 
 namespace NavigationSimulator.ViewModels
 {
@@ -16,8 +18,10 @@ namespace NavigationSimulator.ViewModels
         private readonly DispatcherTimer _timer;
         private readonly PlaneModel _plane = new PlaneModel();
         private readonly UdpClient _udpClient = new UdpClient();
-        private readonly IPEndPoint _gpsEndPoint = new IPEndPoint(IPAddress.Loopback, 11000);
-        private readonly IPEndPoint _imuEndPoint = new IPEndPoint(IPAddress.Loopback, 11001);
+        private readonly IPEndPoint _gpsEndPoint = new IPEndPoint(IPAddress.Loopback, Constants.GNSS_PORT);
+        private readonly IPEndPoint _imuEndPoint = new IPEndPoint(IPAddress.Loopback, Constants.IMU_PORT);
+
+        private readonly NavigationManager _navigationManager;
 
         private bool _isRunning;
         private double _noisyLat;
@@ -31,6 +35,25 @@ namespace NavigationSimulator.ViewModels
 
             StartCommand = new RelayCommand(_ => StartSimulation(), _ => !_isRunning);
             StopCommand = new RelayCommand(_ => StopSimulation(), _ => _isRunning);
+
+            // Initialize Navigation Service
+            var logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.Console()
+                .CreateLogger();
+
+            var devices = new List<INavigationDevice>();
+
+            var gpsSource = new UdpSource(Constants.GNSS_PORT, logger);
+            var nmeaParser = new Navigation_Service.NmeaParser(gpsSource, logger);
+            var gpsDevice = new GNSSDevice(nmeaParser, logger);
+            devices.Add(gpsDevice);
+
+            var imuSource = new UdpSource(Constants.IMU_PORT, logger);
+            var insDevice = new INSDevice(imuSource, logger);
+            devices.Add(insDevice);
+
+            _navigationManager = new NavigationManager(logger, devices);
         }
 
         public ICommand StartCommand { get; }

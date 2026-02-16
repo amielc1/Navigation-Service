@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Navigation_Service
 {
-    internal class CameraDevice : INavigationDevice
+    public class CameraDevice : INavigationDevice
     {
         public event EventHandler<PositionArrivedEventArgs> onPositionArrived;
         public CameraDevice() { }

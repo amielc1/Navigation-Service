@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Navigation_Service
 {
-    internal interface INavigationDevice
+    public interface INavigationDevice
     {
         // every device must implement this event !
         event EventHandler<PositionArrivedEventArgs> onPositionArrived;

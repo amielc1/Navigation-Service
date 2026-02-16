@@ -1,6 +1,6 @@
 ﻿namespace Navigation_Service
 {
-    internal class PositionArrivedEventArgs  : EventArgs
+    public class PositionArrivedEventArgs  : EventArgs
     {
         public  IMeasurement _position { get; private set; }
 

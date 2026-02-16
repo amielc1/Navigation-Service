@@ -3,7 +3,7 @@ using Serilog.Core;
 
 namespace Navigation_Service
 {
-    internal class NavigationManager
+    public class NavigationManager
     {
 
         private readonly ILogger _logger;
