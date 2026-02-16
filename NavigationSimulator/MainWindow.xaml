@@ -49,14 +49,17 @@
                 <Line X1="0" Y1="250" X2="800" Y2="250" Stroke="#1E1E1E" StrokeThickness="1" />
                 <Line X1="400" Y1="0" X2="400" Y2="500" Stroke="#1E1E1E" StrokeThickness="1" />
 
-                <!-- Ground Truth (Green Dot) -->
-                <Ellipse Fill="Lime" Width="10" Height="10" Margin="-5">
-                    <Ellipse.RenderTransform>
-                        <TranslateTransform 
-                            X="{Binding TruthLon, ConverterParameter=400|9.0|20000, Converter={local:LatLonToXYConverter IsLon=True}}" 
-                            Y="{Binding TruthLat, ConverterParameter=250|45.0|20000, Converter={local:LatLonToXYConverter IsLon=False}}"/>
-                    </Ellipse.RenderTransform>
-                </Ellipse>
+                <!-- Ground Truth (Airplane) -->
+                <Path Fill="Lime" Data="M 0,-15 L 2,-15 L 2,-12 L 15,0 L 15,3 L 2,3 L 2,9 L 6,12 L 6,15 L 0,13 L -6,15 L -6,12 L -2,9 L -2,3 L -15,3 L -15,0 L -2,-12 L -2,-15 Z">
+                    <Path.RenderTransform>
+                        <TransformGroup>
+                            <RotateTransform Angle="{Binding HeadingDeg}"/>
+                            <TranslateTransform 
+                                X="{Binding TruthLon, ConverterParameter=400|9.0|20000, Converter={local:LatLonToXYConverter IsLon=True}}" 
+                                Y="{Binding TruthLat, ConverterParameter=250|45.0|20000, Converter={local:LatLonToXYConverter IsLon=False}}"/>
+                        </TransformGroup>
+                    </Path.RenderTransform>
+                </Path>
 
                 <!-- Noisy GPS (Red Cross) -->
                 <Canvas>
